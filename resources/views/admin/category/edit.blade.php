@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Edit Category
-                        <a href=" {{ url('admin/category')}} " class="btn btn-danger btn-sm float-end">
+                        <a href=" {{ url('admin/category')}} " class="btn btn-danger btn-sm text-white float-end">
                             Back
                         </a>
                     </h3>

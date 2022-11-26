@@ -40,7 +40,7 @@
                                     <td> {{ $category->name }} </td>
                                     <td> {{ $category->status == '1' ? 'Hidden': 'Visible'}} </td>
                                     <td> 
-                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                               <div class="modal-content">
                                                 <div class="modal-header">
@@ -79,7 +79,13 @@
 </div>
 
 @push('script')
-  
+  <script>
+    window.addEvenListener('close-modal', event => {
+        $('#addModal').modal('hide')
+    })
+  </script>
 
 @endpush
+
+
 
