@@ -17,6 +17,20 @@
                         @method('PUT')
                        
                         <div class="row">
+
+                            <div class="mb-3" >
+                                <label for="" >
+                                    Select Category
+                                </label>
+                                <select name="category_id"  required class="form-control" >
+                                    <option value=""> 
+                                        --select-category--
+                                    </option>
+                                    @foreach ($categories as $category)
+                                        <option value=" {{$category->id}}"> {{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             
                             <div class="col-md-6 md-3" >
                                 <label for="" >

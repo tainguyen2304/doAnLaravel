@@ -1,25 +1,16 @@
 <?php
 
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
+
+Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('/collections', [App\Http\Controllers\Frontend\FrontendController::class, 'categories']);
+Route::get('/collections/{category_slug}', [App\Http\Controllers\Frontend\FrontendController::class, 'products']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -60,14 +51,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/products/delete/{id}', 'delete');
     });
 
+    Route::get('/brands', App\Http\Livewire\Admin\Brand\Index::class);
 
-    /// colors  routes
-    Route::controller(App\Http\Controllers\Admin\ColorsController::class)->group(function () {
-        Route::get('/colors',  'index');
-        Route::get('/colors/create', 'create');
-        Route::post('/colors', 'store');
-        Route::get('/colors/{id}/edit', 'edit');
-        Route::put('/colors/{id}', 'update');
-        Route::get('/colors/delete/{id}', 'delete');
+
+    /// sliders  routes
+    Route::controller(App\Http\Controllers\Admin\SliderController::class)->group(function () {
+        Route::get('/sliders',  'index');
+        Route::get('/sliders/create', 'create');
+        Route::post('/sliders', 'store');
+        Route::get('/sliders/{id}/edit', 'edit');
+        Route::put('/sliders/{id}', 'update');
+        Route::get('/sliders/delete/{id}', 'delete');
     });
 });

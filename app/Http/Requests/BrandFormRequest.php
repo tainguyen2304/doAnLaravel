@@ -32,6 +32,13 @@ class BrandFormRequest extends FormRequest
                 'required',
                 'string'
             ],
+            'category_id' => [
+                'required',
+                'interge'
+            ],
+            'status' => [
+                'nullable',
+            ],
         ];
     }
 }

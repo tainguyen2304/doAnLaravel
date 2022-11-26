@@ -76,11 +76,10 @@ class ProductController extends Controller
 
     public function update(ProductFormRequest $request, int $product_id)
     {
-
         $validatedData = $request->validated();
         $product = Category::findOrFail($validatedData['category_id'])->products()->where('id', $product_id)->first();
         if ($product) {
-            $product()->update([
+            $product->update([
                 'category_id' => $validatedData['category_id'],
                 'name' => $validatedData['name'],
                 'slug' => Str::slug($validatedData['slug']),

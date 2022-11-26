@@ -24,26 +24,26 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        $category = new Category;
-        $category->name = $validatedData['name'];
-        $category->slug = Str::slug($validatedData['slug']);
-        $category->description = $validatedData['description'];
-
+        $path = 'uploads/category/';
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-
-            $file->move('uploads/category/', $filename);
-            $category->image = $filename;
+            $file->move($path, $filename);
+            $validatedData['image'] = "uploads/category/$filename";
         }
+        $validatedData['status'] = $request->status == true ? '1' : '0';
 
-        $category->meta_title = $validatedData['meta_title'];
-        $category->meta_keyword = $validatedData['meta_keyword'];
-        $category->meta_description = $validatedData['meta_description'];
-
-        $category->status = $request->status == true ? '1' : '0';
-        $category->save();
+        Category::create([
+            'name' => $validatedData['name'],
+            'slug' => Str::slug($validatedData['slug']),
+            'description' => $validatedData['description'],
+            'image' => $validatedData['image'],
+            'meta_title' => $validatedData['meta_title'],
+            'meta_keyword' => $validatedData['meta_keyword'],
+            'meta_description' => $validatedData['meta_description'],
+            'status' => $validatedData['status'],
+        ]);
 
         return redirect('admin/category')->with('message', 'Category Added Successfullt');
     }
@@ -57,35 +57,31 @@ class CategoryController extends Controller
 
     public function update(CategoryFormRequest $request, $id)
     {
-
         $validatedData = $request->validated();
 
-        $category =  Category::find($id);
-
-
-        $category->name = $validatedData['name'];
-        $category->slug = Str::slug($validatedData['slug']);
-        $category->description = $validatedData['description'];
-
+        $category =  Category::findOrFail($id);
+        
         if ($request->hasFile('image')) {
-            $path = 'uploads/category/' . $category->image;
-            if (File::exits($path)) {
-                File::delete($path);
-            }
-            $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-
-            $file->move('uploads/category/', $filename);
-            $category->image = $filename;
+            $uploadPath = 'uploads/cagegory/';
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $filename = time() . '.' . $extention;
+            $request->file('image')->move($uploadPath, $filename);
+            $finalImagePathName = $uploadPath . $filename;
+            $validatedData['image'] = $finalImagePathName;
         }
+        $validatedData['status'] = $request->status == true ? '1' : '0';
 
-        $category->meta_title = $validatedData['meta_title'];
-        $category->meta_keyword = $validatedData['meta_keyword'];
-        $category->meta_description = $validatedData['meta_description'];
+        Category::where('id', $category->id)->update([
+            'name' => $validatedData['name'],
+            'slug' => Str::slug($validatedData['slug']),
+            'description' => $validatedData['description'],
+            'image' => $validatedData['image'] ?? $category->image,
+            'meta_title' => $validatedData['meta_title'],
+            'meta_keyword' => $validatedData['meta_keyword'],
+            'meta_keyword' => $validatedData['meta_keyword'],
+            'status' => $validatedData['status'],
+        ]);
 
-        $category->status = $request->status == true ? '1' : '0';
-        $category->update();
 
         return redirect('admin/category')->with('message', 'Category Update Successfullt');
     }

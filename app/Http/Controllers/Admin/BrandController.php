@@ -19,7 +19,8 @@ class BrandController extends Controller
 
     public function create()
     {
-        return view('admin.brand.create');
+        $categories = Category::where('status', '0')->get();
+        return view('admin.brand.create', compact('categories'));
     }
 
     public function store(BrandFormRequest $request)
@@ -30,6 +31,7 @@ class BrandController extends Controller
         $brand->name = $validatedData['name'];
         $brand->slug = Str::slug($validatedData['slug']);
         $brand->status = $request->status == true ? '1' : '0';
+        $brand->category_id = $request->category_id;
         $brand->save();
         return redirect('admin/brand')->with('message', 'Brand Added Successfullt');
     }
@@ -37,7 +39,8 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::findOrFail($id);
-        return view('admin.brand.edit', compact('brand'));
+        $categories = Category::where('status', '0')->get();
+        return view('admin.brand.edit', compact('brand', 'categories'));
     }
 
     public function update(BrandFormRequest $request, $id)
