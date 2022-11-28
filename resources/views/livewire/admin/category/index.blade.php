@@ -27,6 +27,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Slug</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -38,9 +39,10 @@
                                 <tr>
                                     <td> {{ $category->id }} </td>
                                     <td> {{ $category->name }} </td>
+                                    <td> {{ $category->slug }} </td>
                                     <td> {{ $category->status == '1' ? 'Hidden': 'Visible'}} </td>
                                     <td> 
-                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModalCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                               <div class="modal-content">
                                                 <div class="modal-header">
@@ -61,7 +63,7 @@
                                             </div>
                                           </div>
                                         <a href="{{ url('admin/category/'.$category->id.'/edit') }}" class="btn btn-success">Edit</a>
-                                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalCategory">Delete</a>
 
                                             
                                     </td>
@@ -79,7 +81,13 @@
 </div>
 
 @push('script')
-  
+  <script>
+    window.addEvenListener('close-modal', event => {
+        $('#addModal').modal('hide')
+    })
+  </script>
 
 @endpush
+
+
 

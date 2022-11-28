@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Edit Category
-                        <a href=" {{ url('admin/category')}} " class="btn btn-danger btn-sm float-end">
+                        <a href=" {{ url('admin/category')}} " class="btn btn-danger btn-sm text-white float-end">
                             Back
                         </a>
                     </h3>
@@ -15,7 +15,6 @@
                     <form action="{{ url('admin/category/'.$category->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                       
                         <div class="row">
                             
                             <div class="col-md-6 md-3" >
@@ -61,12 +60,7 @@
                                     Image
                                 </label>
                                 <input type="file" name="image" class="form-control"/>
-                                <img src=" {{ asset('uploads/category/'.$category-> image) }} " alt="" width="60px" height="60px">
-                                @error('image')
-                                <small class="text-danger">
-                                    {{$message}}
-                                </small>
-                            @enderror
+                                <img src="{{ asset($category-> image) }} " alt="" width="60px" height="60px">
                             </div>
                             <div class="col-md-6 md-3">
                                 <label>
