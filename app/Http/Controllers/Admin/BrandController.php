@@ -31,7 +31,7 @@ class BrandController extends Controller
         $brand->name = $validatedData['name'];
         $brand->slug = Str::slug($validatedData['slug']);
         $brand->status = $request->status == true ? '1' : '0';
-        $brand->category_id = $request->category_id;
+        $brand->category_id = $validatedData['category_id'];
         $brand->save();
         return redirect('admin/brand')->with('message', 'Brand Added Successfullt');
     }
@@ -51,6 +51,7 @@ class BrandController extends Controller
         $brand->name = $validatedData['name'];
         $brand->slug = Str::slug($validatedData['slug']);
         $brand->status = $request->status == true ? '1' : '0';
+        $brand->category_id = $validatedData['category_id'];
         $brand->update();
         return redirect('admin/brand')->with('message', 'Brand Update Successfullt');
     }

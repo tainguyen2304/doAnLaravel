@@ -67,7 +67,7 @@
                                 <label >Select Brand</label>
                                 <select name="brand"  class="form-control" >
                                     @foreach ($brands as $brands)
-                                        <option value=" {{$brands->id}}"> {{$brands->name}}</option>
+                                        <option value=" {{$brands->name}}"> {{$brands->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

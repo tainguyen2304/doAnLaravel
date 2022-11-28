@@ -30,7 +30,7 @@
     <div id="app">
         @include('layouts.inc.frontend.navbar')
      
-        <main >
+        <main>
             @yield('content')
         </main>
     </div>
@@ -39,6 +39,6 @@
      <script src="{{asset('assets/js/jquery-3.6.1.min.js')}}" ></script>
      <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" ></script>
 
-     @livewireStyles
+     @livewireScripts
 </body>
 </html>
