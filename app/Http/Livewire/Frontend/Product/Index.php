@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Frontend\Product;
 
+use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
@@ -13,6 +16,26 @@ class Index extends Component
         'brandInputs' => ['except' => '', 'as' => 'brand'],
         'priceInput' => ['except' => '', 'as' => 'price'],
     ];
+
+    public function addToWishList($productId)
+    {
+        if (Auth::check()) {
+            if (Wishlist::where('user_id', auth()->user()->id)->where('product_id', $productId)->exists()) {
+                session()->flash('message', 'already added  to wishlist');
+                return false;
+            } else {
+                Wishlist::create([
+                    'user_id' => auth()->user()->id,
+                    'product_id' => $productId
+                ]);
+                $this->emit('wishlistAddedUpdate');
+                session()->flash('message', 'Wishlist added successfully');
+            }
+        } else {
+            session()->flash('message', 'please login to continue');
+            return false;
+        }
+    }
 
     public function mount(
         $category,

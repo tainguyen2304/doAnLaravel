@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Wishlist extends Model
+class Orderitem extends Model
 {
     use HasFactory;
-
-    protected $table = 'wishlists';
+    protected $table = 'order_items';
 
     protected $fillable = [
-        'user_id',
+        'order_id',
         'product_id',
+        'quantity',
+        'price'
     ];
 
     public function product(): BelongsTo
