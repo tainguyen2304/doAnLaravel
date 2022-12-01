@@ -57,20 +57,24 @@
                     
                                 </div>
                                 <div class="product-card-body">
-                                    <p class="product-brand">{{$productItem->brand}}</p>
+                                    {{-- <p class="product-brand">{{$productItem->brand}}</p> --}}
                                     <h5 class="product-name">
                                     <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}">
                                             {{$productItem->name}}
                                     </a>
                                     </h5>
                                     <div>
-                                        <span class="selling-price">  {{$productItem->selling_price}}</span>
-                                        <span class="original-price">  {{$productItem->original_price}}</span>
+                                        <span class="selling-price"> $ {{$productItem->selling_price}}</span>
+                                        <span class="original-price"> $ {{$productItem->original_price}}</span>
                                     </div>
                                     <div class="mt-2">
-                                        <a href="" class="btn btn1">Add To Cart</a>
-                                        <a href="" class="btn btn1"> <i class="fa fa-heart"></i> </a>
-                                        <a href="" class="btn btn1"> View </a>
+                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">Add to category </a>
+                                        <button wire:click="addToWishList({{$productItem->id }})"  class="btn btn1"> 
+                                            <span  wire:target="addToWishList">
+                                                <i class="fa fa-heart"></i>
+                                            </span>
+                                        </button>
+                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">View </a>
                                     </div>
                                 </div>
                             </div>

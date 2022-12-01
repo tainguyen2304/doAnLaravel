@@ -11,13 +11,23 @@ class WishlistShow extends Component
 
     public function removeWishListItem(int $wishListId)
     {
-        Wishlist::where('user_id', auth()->user()->id)->where('id', $wishListId)->delete();
-        $this->emit('wishlistAddedUpdate');
-        $this->dispatchBrowserEvent('message', [
-            'text' => 'Wislist item remove successfully.',
-            'type' => 'success',
-            'status' => 200
-        ]);
+        $wishListRemoveData =  Wishlist::where('user_id', auth()->user()->id)->where('id', $wishListId)->first();
+        if ($wishListRemoveData) {
+            $wishListRemoveData->delete();
+
+            $this->emit('wishlistAddedUpdate');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Wislist item remove successfully.',
+                'type' => 'success',
+                'status' => 200
+            ]);
+        } else {
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Something went wrong .',
+                'type' => 'error',
+                'status' => 500
+            ]);
+        }
     }
 
     public function render()

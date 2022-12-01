@@ -21,24 +21,24 @@
                 <div class="product-view">
                     <h4 class="product-name">
                        {{ $product->name}}
-                        <label class="label-stock bg-success">In Stock</label>
+                            @if ($product->quantity)
+                            <label class="label-stock bg-success">In Stock</label>
+                            
+                        @else
+                            <label class="label-stock bg-danger">Out Stock</label>
+                        @endif
                     </h4>
                     <hr>
                     <p class="product-path">
                         Home /   {{ $product->category->name}} /  {{ $product->name}}
                     </p>
                     <div>
-                        <span class="selling-price">{{ $product->selling_price}}</span>
-                        <span class="original-price">{{ $product->original_price}}</span>
+                        <span class="selling-price">${{ $product->selling_price}}</span>
+                        <span class="original-price">${{ $product->original_price}}</span>
                     </div>
 
                     <div>
-                        @if ($product->quantity)
-                            <label class="btn-sm mt-2 text-white bg-success">In Stock</label>
-                            
-                        @else
-                            <label class="btn-sm mt-2 text-white bg-danger">Out Stock</label>
-                        @endif
+                       
                     </div>
 
                     <div class="mt-2">
@@ -61,8 +61,6 @@
                             <span wire:loading wire:target="addToWishList">
                                 Adding...
                             </span>
-                            
-                        
                         </button>
                     </div>
                     <div class="mt-3">
