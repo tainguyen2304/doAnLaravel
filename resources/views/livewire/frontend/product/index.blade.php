@@ -40,51 +40,50 @@
                             <h4 class="mb-4">Our Products</h4>
                         </div>
                         @forelse ($products as $productItem)
-                        <div class="col-md-3">
-                            <div class="product-card">
-                                <div class="product-card-img">
-                                    @if ($productItem->quantity > 0)
-                                        <label class="stock bg-success">In Stock</label>
-                                    @else
-                                        <label class="stock bg-danger">Out of Stock</label>
-                                    @endif
-                    
-                                    @if ($productItem->productImages->count()>0)
-                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}} ">
-                                            <img src=" {{asset($productItem->productImages[0]->image)}} " alt="{{$productItem->name}}">
-                                        </a>
-                                    @endif
-                    
-                                </div>
-                                <div class="product-card-body">
-                                    {{-- <p class="product-brand">{{$productItem->brand}}</p> --}}
-                                    <h5 class="product-name">
-                                    <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}">
-                                            {{$productItem->name}}
-                                    </a>
-                                    </h5>
-                                    <div>
-                                        <span class="selling-price"> $ {{$productItem->selling_price}}</span>
-                                        <span class="original-price"> $ {{$productItem->original_price}}</span>
+                            <div class="col-md-3">
+                                <div class="product-card">
+                                    <div class="product-card-img">
+                                        @if ($productItem->quantity > 0)
+                                            <label class="stock bg-success">In Stock</label>
+                                        @else
+                                            <label class="stock bg-danger">Out of Stock</label>
+                                        @endif
+                        
+                                        @if ($productItem->productImages->count()>0)
+                                            <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}} ">
+                                                <img src=" {{asset($productItem->productImages[0]->image)}} " alt="{{$productItem->name}}">
+                                            </a>
+                                        @endif
+                        
                                     </div>
-                                    <div class="mt-2">
-                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">Add to category </a>
-                                        <button wire:click="addToWishList({{$productItem->id }})"  class="btn btn1"> 
-                                            <span  wire:target="addToWishList">
-                                                <i class="fa fa-heart"></i>
-                                            </span>
-                                        </button>
-                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">View </a>
+                                    <div class="product-card-body">
+                                        {{-- <p class="product-brand">{{$productItem->brand}}</p> --}}
+                                        <h5 class="product-name">
+                                        <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}">
+                                                {{$productItem->name}}
+                                        </a>
+                                        </h5>
+                                        <div>
+                                            <span class="selling-price"> $ {{$productItem->selling_price}}</span>
+                                            <span class="original-price"> $ {{$productItem->original_price}}</span>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">Add to category </a>
+                                            <button wire:click="addToWishList({{$productItem->id }})"  class="btn btn1"> 
+                                                <span  wire:target="addToWishList">
+                                                    <i class="fa fa-heart"></i>
+                                                </span>
+                                            </button>
+                                            <a href=" {{url('/collections/productDetails/'.$productItem->category->slug.'/'.$productItem->slug)}}" class="btn btn1">View </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="col-md-12">
-                            <h4 class="p-2">No Products Avaiable for {{ $category->name }}</h4>
-                        </div>
-                    
-                    @endforelse
+                        @empty
+                            <div class="col-md-12">
+                                <h4 class="p-2">No Products Avaiable for {{ $category->name }}</h4>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

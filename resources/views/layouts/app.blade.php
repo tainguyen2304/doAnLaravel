@@ -22,6 +22,16 @@
     {{-- styles --}}
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
+
+    {{-- own carousle --}}
+    <link href="{{asset('assets/css/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/owl.theme.default.min.css')}}" rel="stylesheet">
+
+    {{-- exzoom prod image --}}
+    <link href="{{asset('assets/exzoom/jquery.exzoom.css')}}" rel="stylesheet">
+
+
+
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
@@ -31,10 +41,10 @@
 <body>
     <div id="app">
         @include('layouts.inc.frontend.navbar')
-     
         <main>
             @yield('content')
         </main>
+        @include('layouts.inc.frontend.footer')
     </div>
      <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -47,6 +57,40 @@
                 alertify.notify(event.detail.text,event.detail.type);
             })
         </script>
+        <script src="{{asset('assets/js/owl.carousel.min.js')}}" ></script>
+        <script src="{{asset('assets/exzoom/jquery.exzoom.js')}}" ></script>
+        <script>
+           $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:5
+                    }
+                }
+            })
+          </script>
+        <script>
+            $(function(){
+                $("#exzoom").exzoom({
+                "navWidth": 60,
+                "navHeight": 60,
+                "navItemNum": 5,
+                "navItemMargin": 7,
+                "navBorder": 1,
+                "autoPlay": true,
+                "autoPlayTimeout": 2000
+                });
+            });
+        </script>
         @livewireScripts
+        @stack('scripts')
 </body>
 </html>

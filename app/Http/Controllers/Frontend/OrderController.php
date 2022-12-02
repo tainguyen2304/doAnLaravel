@@ -16,7 +16,7 @@ class OrderController extends Controller
         return view('frontend.orders.index', compact('orders'));
     }
 
-    public function detail($borderId)
+    public function detail(int $borderId)
     {
         $order = Order::where('user_id', Auth::user()->id)->where('id', $borderId)->first();
         if ($order) {

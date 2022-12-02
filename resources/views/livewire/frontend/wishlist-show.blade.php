@@ -6,7 +6,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="shopping-cart">
-
+                        <h2 class="text-center mb-5">
+                            Wishlist
+                        </h2>
                         <div class="cart-header d-none d-sm-none d-mb-block d-lg-block">
                             <div class="row">
                                 <div class="col-md-6">
